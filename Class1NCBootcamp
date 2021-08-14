@@ -1,0 +1,212 @@
+mysql -u root -p
+Enter password: 
+ show databases;
++--------------------+
+| Database           |
++--------------------+
+| Emp                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sample             |
++--------------------+
+5 rows in set (0.06 sec)
+mysql> use emp;
+
+mysql> show tables;
++---------------+
+| Tables_in_emp |
++---------------+
+| emplooye      |
+| Project       |
+| Student       |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> drop database sample;
+Query OK, 0 rows affected (0.01 sec)
+
+Create table Student(First_Name varchar(255),Last_name varchar(255), roll_number int , marks int);
+
+
+
+mysql> desc Student;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| First_Name  | varchar(255) | YES  |     | NULL    |       |
+| Last_name   | varchar(255) | YES  |     | NULL    |       |
+| roll_number | int          | YES  |     | NULL    |       |
+| marks       | int          | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+
+Insert into Student(First_Name,last_name,roll_number,marks) values ("Priya","Kumari",17,78);
+Query OK, 1 row affected (0.02 sec)
+
+
+mysql> show tables;
++----------------------------+
+| Tables_in_conding_bootcamp |
++----------------------------+
+| Student                    |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> Select  * from Student;
++------------+-----------+-------------+-------+
+| First_Name | Last_name | roll_number | marks |
++------------+-----------+-------------+-------+
+| Priya      | Kumari    |          17 |    78 |
+| Ravi       | Singh     |          18 |    67 |
+| Varun      | Roy       |           8 |    77 |
+| Shivani    | Roy       |          19 |    97 |
+| Ravi       | raj       |          20 |    87 |
+| pooja      | Singh     |          22 |    87 |
++------------+-----------+-------------+-------+
+6 rows in set (0.00 sec)
+
+mysql> Select  Roll_Number  from Student;
++-------------+
+| Roll_Number |
++-------------+
+|          17 |
+|          18 |
+|           8 |
+|          19 |
+|          20 |
+|          22 |
++-------------+
+6 rows in set (0.00 sec)
+
+mysql> Select  First_name , Roll_Number  from Student;
++------------+-------------+
+| First_name | Roll_Number |
++------------+-------------+
+| Priya      |          17 |
+| Ravi       |          18 |
+| Varun      |           8 |
+| Shivani    |          19 |
+| Ravi       |          20 |
+| pooja      |          22 |
++------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+ 
+Add Col
+Alter table Student add  address varchar(255);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+Select  * from Student;
++------------+-----------+-------------+-------+---------+
+| First_Name | Last_name | roll_number | marks | address |
++------------+-----------+-------------+-------+---------+
+| Priya      | Kumari    |          17 |    78 | NULL    |
+| Ravi       | Singh     |          18 |    67 | NULL    |
+| Varun      | Roy       |           8 |    77 | NULL    |
+| Shivani    | Roy       |          19 |    97 | NULL    |
+| Ravi       | raj       |          20 |    87 | NULL    |
+| pooja      | Singh     |          22 |    87 | NULL    |
++------------+-----------+-------------+-------+---------+
+6 rows in set (0.01 sec)
+
+
+// Drop col
+Alter table Student drop  address;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Select  * from Student;
++------------+-----------+-------------+-------+
+| First_Name | Last_name | roll_number | marks |
++------------+-----------+-------------+-------+
+| Priya      | Kumari    |          17 |    78 |
+| Ravi       | Singh     |          18 |    67 |
+| Varun      | Roy       |           8 |    77 |
+| Shivani    | Roy       |          19 |    97 |
+| Ravi       | raj       |          20 |    87 |
+| pooja      | Singh     |          22 |    87 |
++------------+-----------+-------------+-------+
+6 rows in set (0.00 sec)
+
+
+// Add Primary key 
+
+Alter table Student add primary key (Roll_number);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter table Student modify roll_number varchar(255);
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc Student;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| First_Name  | varchar(255) | YES  |     | NULL    |       |
+| Last_name   | varchar(255) | YES  |     | NULL    |       |
+| roll_number | varchar(255) | NO   | PRI | NULL    |       |
+| marks       | int          | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+// Modify data type 
+mysql> Alter table Student modify roll_number int;
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc Student;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| First_Name  | varchar(255) | YES  |     | NULL    |       |
+| Last_name   | varchar(255) | YES  |     | NULL    |       |
+| roll_number | int          | NO   | PRI | NULL    |       |
+| marks       | int          | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+
+mysql> Alter table Student drop primary key;
+Query OK, 6 rows affected (0.05 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc Student;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| First_Name  | varchar(255) | YES  |     | NULL    |       |
+| Last_name   | varchar(255) | YES  |     | NULL    |       |
+| roll_number | int          | NO   |     | NULL    |       |
+| marks       | int          | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> Alter table Student add  primary key(Roll_number,First_name);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Student;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| First_Name  | varchar(255) | NO   | PRI | NULL    |       |
+| Last_name   | varchar(255) | YES  |     | NULL    |       |
+| roll_number | int          | NO   | PRI | NULL    |       |
+| marks       | int          | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> Alter table Student drop primary key;
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> Alter table Student add  primary key(Roll_number);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
