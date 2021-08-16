@@ -1,0 +1,282 @@
+ Select * from project;
++------+------+--------------+----------+
+| E_ID | p_id | project_name | location |
++------+------+--------------+----------+
+|    1 | p1   | IOT          | Banglore |
+|    5 | P2   | IOT          | Delhi    |
+|    3 | p3   | Retail       | Mumbai   |
+|    4 | p4   | Android      | Mumbai   |
++------+------+--------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> Select * from Emplooye;
++------+-------+------+--------+----------+
+| E_ID | EName | Dept | salary | Address  |
++------+-------+------+--------+----------+
+|    1 | Kunal | HR   |  10020 | panj     |
+|    2 | Mohan | MRKT |  10060 | Delhi    |
+|    3 | Ravi  | HR   |  10090 | Pune     |
+|    4 | Ravi  | HR   |  10090 | Pune     |
+|    5 | Varun | MRKT |  30090 | Banglore |
+|    6 | Nitin | IT   |  30090 | Delhi    |
+|    7 | Rahul | IT   |  40090 | Panj     |
++------+-------+------+--------+----------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+Alter table emplooye add primary key (E_ID);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter table project add primary key (p_ID);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+//  Aggregate Function
+
+// max
+mysql> Select max(salary)  from Emplooye;
++-------------+
+| max(salary) |
++-------------+
+|       40090 |
++-------------+
+1 row in set (0.01 sec)
+
+
+
+mysql> Select *  from Emplooye where salary=(Select Max(Salary) from emplooye);
++------+-------+------+--------+---------+
+| E_ID | EName | Dept | salary | Address |
++------+-------+------+--------+---------+
+|    7 | Rahul | IT   |  40090 | Panj    |
++------+-------+------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> Insert into Emplooye(E_ID,Ename,Dept,salary, Address ) values (8,"Pooja","IT",40090,"Delhi");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Select *  from Emplooye where salary=(Select Max(Salary) from emplooye);
++------+-------+------+--------+---------+
+| E_ID | EName | Dept | salary | Address |
++------+-------+------+--------+---------+
+|    7 | Rahul | IT   |  40090 | Panj    |
+|    8 | Pooja | IT   |  40090 | Delhi   |
++------+-------+------+--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> Select *  from Emplooye where salary=(Select Max(Salary) from emplooye) and Address="Delhi";
++------+-------+------+--------+---------+
+| E_ID | EName | Dept | salary | Address |
++------+-------+------+--------+---------+
+|    8 | Pooja | IT   |  40090 | Delhi   |
++------+-------+------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> Select min(salary)  from Emplooye;
++-------------+
+| min(salary) |
++-------------+
+|       10020 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> Select *  from Emplooye where salary=(Select min(Salary) from emplooye);
++------+-------+------+--------+---------+
+| E_ID | EName | Dept | salary | Address |
++------+-------+------+--------+---------+
+|    1 | Kunal | HR   |  10020 | panj    |
++------+-------+------+--------+---------+
+1 row in set (0.00 sec)
+
+
+
+
+mysql> Select Avg(salary)  from Emplooye;
++-------------+
+| Avg(salary) |
++-------------+
+|  22577.5000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> Select * from Emplooye;
++------+-------+------+--------+----------+
+| E_ID | EName | Dept | salary | Address  |
++------+-------+------+--------+----------+
+|    1 | Kunal | HR   |  10020 | panj     |
+|    2 | Mohan | MRKT |  10060 | Delhi    |
+|    3 | Ravi  | HR   |  10090 | Pune     |
+|    4 | Ravi  | HR   |  10090 | Pune     |
+|    5 | Varun | MRKT |  30090 | Banglore |
+|    6 | Nitin | IT   |  30090 | Delhi    |
+|    7 | Rahul | IT   |  40090 | Panj     |
+|    8 | Pooja | IT   |  40090 | Delhi    |
++------+-------+------+--------+----------+
+8 rows in set (0.00 sec)
+
+
+mysql> Select Count(Salary) from Emplooye;
++---------------+
+| Count(Salary) |
++---------------+
+|             8 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> Select Count(Distinct(Salary)) from Emplooye;
++-------------------------+
+| Count(Distinct(Salary)) |
++-------------------------+
+|                       5 |
++-------------------------+
+1 row in set (0.01 sec)
+
+
+
+
+
+ Q write a Quarry to display all the department name along with no of employee Working in that ??
+
+
+The SQL WHERE Clause
+The WHERE clause is used to filter records.
+
+It is used to extract only those records that fulfill a specified condition.
+WHERE Clause is used to filter the records from the table based on the specified condition.
+
+
+ Group by
+
+
+
+ Select count(*)  from Emplooye where Dept="MRKT";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> Select count(*)  from Emplooye where Dept="HR";
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+
+
+Select Dept  from Emplooye Group by Dept;
++------+
+| Dept |
++------+
+| HR   |
+| MRKT |
+| IT   |
++------+
+3 rows in set (0.00 sec)
+
+mysql> Select Address  from Emplooye Group by Address;
++----------+
+| Address  |
++----------+
+| panj     |
+| Delhi    |
+| Pune     |
+| Banglore |
++----------+
+4 rows in set (0.00 sec)
+
+
+
+Select Address , Count(Address)  from Emplooye Group by Address;
++----------+----------------+
+| Address  | Count(Address) |
++----------+----------------+
+| panj     |              2 |
+| Delhi    |              3 |
+| Pune     |              2 |
+| Banglore |              1 |
++----------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> Select Address , Count(*)  from Emplooye Group by Address;
++----------+----------+
+| Address  | Count(*) |
++----------+----------+
+| panj     |        2 |
+| Delhi    |        3 |
+| Pune     |        2 |
+| Banglore |        1 |
++----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> Select Dept, Count(*)  from Emplooye Group by Dept;
++------+----------+
+| Dept | Count(*) |
++------+----------+
+| HR   |        3 |
+| MRKT |        2 |
+| IT   |        3 |
++------+----------+
+3 rows in set (0.00 sec)
+
+
+
+Q  write a Quarry to display all the department name where no of employee are less then 2??
+
+
+Select Dept from Emplooye Group by dept  having  Count(*)<=2;
++------+
+| Dept |
++------+
+| MRKT |
++------+
+1 row in set (0.00 sec)
+
+mysql> Select Dept from Emplooye Group by dept  having  Count(*)<=3;
++------+
+| Dept |
++------+
+| HR   |
+| MRKT |
+| IT   |
++------+
+3 rows in set (0.00 sec)
+Q Display Name with Max Salary dept wise
+// In Not IN
+mysql> Select * from Emplooye where salary in (Select Max(Salary) from Emplooye Group by Dept);
++------+-------+------+--------+----------+
+| E_ID | EName | Dept | salary | Address  |
++------+-------+------+--------+----------+
+|    3 | Ravi  | HR   |  10090 | Pune     |
+|    4 | Ravi  | HR   |  10090 | Pune     |
+|    5 | Varun | MRKT |  30090 | Banglore |
+|    6 | Nitin | IT   |  30090 | Delhi    |
+|    7 | Rahul | IT   |  40090 | Panj     |
+|    8 | Pooja | IT   |  40090 | Delhi    |
++------+-------+------+--------+----------+ 
+
+
+mysql> Select * from Emplooye where salary not in (Select Max(Salary) from Emplooye Group by Dept);
++------+-------+------+--------+---------+
+| E_ID | EName | Dept | salary | Address |
++------+-------+------+--------+---------+
+|    1 | Kunal | HR   |  10020 | panj    |
+|    2 | Mohan | MRKT |  10060 | Delhi   |
++------+-------+------+--------+---------+
+2 rows in set (0.00 sec)
+
+
+
+Q find the name of Employee who are working on project 
+
+
+
+
+
