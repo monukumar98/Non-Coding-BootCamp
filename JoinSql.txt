@@ -1,0 +1,306 @@
+Q Display Name with Max Salary dept wise
+mysql> Select * from Emplooye where (Dept,salary) in  (Select  Dept , max(salary) from Emplooye group by Dept);
++------+-------+------+--------+----------+
+| E_ID | EName | Dept | salary | Address  |
++------+-------+------+--------+----------+
+|    3 | Ravi  | HR   |  10090 | Pune     |
+|    4 | Rahul | HR   |  10090 | Pune     |
+|    5 | Varun | MRKT |  30090 | Banglore |
+|    7 | Rahul | IT   |  40090 | Panj     |
+|    8 | Pooja | IT   |  40090 | Delhi    |
++------+-------+------+--------+----------+
+5 rows in set (0.00 sec)
+
+
+Q find the name of Employee who are working on project 
+mysql> Select * from Emplooye where E_id in (Select E_Id from Project);
++------+-------+------+--------+----------+
+| E_ID | EName | Dept | salary | Address  |
++------+-------+------+--------+----------+
+|    1 | Kunal | HR   |  10020 | panj     |
+|    5 | Varun | MRKT |  30090 | Banglore |
+|    3 | Ravi  | HR   |  10090 | Pune     |
+|    4 | Rahul | HR   |  10090 | Pune     |
++------+-------+------+--------+----------+
+4 rows in set (0.00 sec)
+
+Q find the name of Employee who are not  working on project 
+
+
+Select * from Emplooye where E_id not  in (Select E_Id from Project);
++------+--------+------+--------+---------+
+| E_ID | EName  | Dept | salary | Address |
++------+--------+------+--------+---------+
+|    2 | Mohan  | MRKT |  10060 | Delhi   |
+|    6 | Nitin  | IT   |  30090 | Delhi   |
+|    7 | Rahul  | IT   |  40090 | Panj    |
+|    8 | Pooja  | IT   |  40090 | Delhi   |
+|    9 | Ranjan | MRKT |  10090 | Mumbai  |
++------+--------+------+--------+---------+
+5 rows in set (0.00 sec)
+
+
+
+Q Detels of employee whose Address is either Delhi Punjab or pune
+
+ Select * from Emplooye where Address in ("Panj", "Delhi","pune");
++------+-------+------+--------+---------+
+| E_ID | EName | Dept | salary | Address |
++------+-------+------+--------+---------+
+|    1 | Kunal | HR   |  10020 | panj    |
+|    2 | Mohan | MRKT |  10060 | Delhi   |
+|    3 | Ravi  | HR   |  10090 | Pune    |
+|    4 | Rahul | HR   |  10090 | Pune    |
+|    6 | Nitin | IT   |  30090 | Delhi   |
+|    7 | Rahul | IT   |  40090 | Panj    |
+|    8 | Pooja | IT   |  40090 | Delhi   |
++------+-------+------+--------+---------+
+7 rows in set (0.01 sec)
+
+
+
+
+Q find the details of emplooye who is working on atleast on project 
+
+
+ Select * from Emplooye where Exists (Select E_id from Project where Emplooye.E_id=Project.E_id );
++------+-------+------+--------+----------+
+| E_ID | EName | Dept | salary | Address  |
++------+-------+------+--------+----------+
+|    1 | Kunal | HR   |  10020 | panj     |
+|    5 | Varun | MRKT |  30090 | Banglore |
+|    3 | Ravi  | HR   |  10090 | Pune     |
+|    4 | Rahul | HR   |  10090 | Pune     |
++------+-------+------+--------+----------+
+4 rows in set (0.01 sec)
+
+
+
+//  joins 
+
+
+
+ Select * from Emplooye,Project;
++------+--------+------+--------+----------+------+------+--------------+----------+
+| E_ID | EName  | Dept | salary | Address  | E_ID | p_id | project_name | location |
++------+--------+------+--------+----------+------+------+--------------+----------+
+|    1 | Kunal  | HR   |  10020 | panj     |    4 | p4   | Android      | Mumbai   |
+|    1 | Kunal  | HR   |  10020 | panj     |    3 | p3   | Retail       | Mumbai   |
+|    1 | Kunal  | HR   |  10020 | panj     |    5 | P2   | IOT          | Delhi    |
+|    1 | Kunal  | HR   |  10020 | panj     |    1 | p1   | IOT          | Banglore |
+|    2 | Mohan  | MRKT |  10060 | Delhi    |    4 | p4   | Android      | Mumbai   |
+|    2 | Mohan  | MRKT |  10060 | Delhi    |    3 | p3   | Retail       | Mumbai   |
+|    2 | Mohan  | MRKT |  10060 | Delhi    |    5 | P2   | IOT          | Delhi    |
+|    2 | Mohan  | MRKT |  10060 | Delhi    |    1 | p1   | IOT          | Banglore |
+|    3 | Ravi   | HR   |  10090 | Pune     |    4 | p4   | Android      | Mumbai   |
+|    3 | Ravi   | HR   |  10090 | Pune     |    3 | p3   | Retail       | Mumbai   |
+|    3 | Ravi   | HR   |  10090 | Pune     |    5 | P2   | IOT          | Delhi    |
+|    3 | Ravi   | HR   |  10090 | Pune     |    1 | p1   | IOT          | Banglore |
+|    4 | Rahul  | HR   |  10090 | Pune     |    4 | p4   | Android      | Mumbai   |
+|    4 | Rahul  | HR   |  10090 | Pune     |    3 | p3   | Retail       | Mumbai   |
+|    4 | Rahul  | HR   |  10090 | Pune     |    5 | P2   | IOT          | Delhi    |
+|    4 | Rahul  | HR   |  10090 | Pune     |    1 | p1   | IOT          | Banglore |
+|    5 | Varun  | MRKT |  30090 | Banglore |    4 | p4   | Android      | Mumbai   |
+|    5 | Varun  | MRKT |  30090 | Banglore |    3 | p3   | Retail       | Mumbai   |
+|    5 | Varun  | MRKT |  30090 | Banglore |    5 | P2   | IOT          | Delhi    |
+|    5 | Varun  | MRKT |  30090 | Banglore |    1 | p1   | IOT          | Banglore |
+|    6 | Nitin  | IT   |  30090 | Delhi    |    4 | p4   | Android      | Mumbai   |
+|    6 | Nitin  | IT   |  30090 | Delhi    |    3 | p3   | Retail       | Mumbai   |
+|    6 | Nitin  | IT   |  30090 | Delhi    |    5 | P2   | IOT          | Delhi    |
+|    6 | Nitin  | IT   |  30090 | Delhi    |    1 | p1   | IOT          | Banglore |
+|    7 | Rahul  | IT   |  40090 | Panj     |    4 | p4   | Android      | Mumbai   |
+|    7 | Rahul  | IT   |  40090 | Panj     |    3 | p3   | Retail       | Mumbai   |
+|    7 | Rahul  | IT   |  40090 | Panj     |    5 | P2   | IOT          | Delhi    |
+|    7 | Rahul  | IT   |  40090 | Panj     |    1 | p1   | IOT          | Banglore |
+|    8 | Pooja  | IT   |  40090 | Delhi    |    4 | p4   | Android      | Mumbai   |
+|    8 | Pooja  | IT   |  40090 | Delhi    |    3 | p3   | Retail       | Mumbai   |
+|    8 | Pooja  | IT   |  40090 | Delhi    |    5 | P2   | IOT          | Delhi    |
+|    8 | Pooja  | IT   |  40090 | Delhi    |    1 | p1   | IOT          | Banglore |
+|    9 | Ranjan | MRKT |  10090 | Mumbai   |    4 | p4   | Android      | Mumbai   |
+|    9 | Ranjan | MRKT |  10090 | Mumbai   |    3 | p3   | Retail       | Mumbai   |
+|    9 | Ranjan | MRKT |  10090 | Mumbai   |    5 | P2   | IOT          | Delhi    |
+|    9 | Ranjan | MRKT |  10090 | Mumbai   |    1 | p1   | IOT          | Banglore |
++------+--------+------+--------+----------+------+------+--------------+----------+
+36 rows in set (0.00 sec)
+
+mysql> Select * from Emplooye,Project where Emplooye.E_id=Project.E_id;
++------+-------+------+--------+----------+------+------+--------------+----------+
+| E_ID | EName | Dept | salary | Address  | E_ID | p_id | project_name | location |
++------+-------+------+--------+----------+------+------+--------------+----------+
+|    1 | Kunal | HR   |  10020 | panj     |    1 | p1   | IOT          | Banglore |
+|    5 | Varun | MRKT |  30090 | Banglore |    5 | P2   | IOT          | Delhi    |
+|    3 | Ravi  | HR   |  10090 | Pune     |    3 | p3   | Retail       | Mumbai   |
+|    4 | Rahul | HR   |  10090 | Pune     |    4 | p4   | Android      | Mumbai   |
++------+-------+------+--------+----------+------+------+--------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> Select E_id,Ename,Dept,Salary,Address from Emplooye,Project where Emplooye.E_id=Project.E_id;
+ERROR 1052 (23000): Column 'E_id' in field list is ambiguous
+mysql> Select Emplooye.E_id,Ename,Dept,Salary,Address from Emplooye,Project where Emplooye.E_id=Project.E_id;
++------+-------+------+--------+----------+
+| E_id | Ename | Dept | Salary | Address  |
++------+-------+------+--------+----------+
+|    1 | Kunal | HR   |  10020 | panj     |
+|    5 | Varun | MRKT |  30090 | Banglore |
+|    3 | Ravi  | HR   |  10090 | Pune     |
+|    4 | Rahul | HR   |  10090 | Pune     |
++------+-------+------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> Select Project.E_id,Ename,Dept,Salary,Address,P_id from Emplooye,Project where Emplooye.E_id=Project.E_id;
++------+-------+------+--------+----------+------+
+| E_id | Ename | Dept | Salary | Address  | P_id |
++------+-------+------+--------+----------+------+
+|    1 | Kunal | HR   |  10020 | panj     | p1   |
+|    5 | Varun | MRKT |  30090 | Banglore | P2   |
+|    3 | Ravi  | HR   |  10090 | Pune     | p3   |
+|    4 | Rahul | HR   |  10090 | Pune     | p4   |
++------+-------+------+--------+----------+------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+// natural join 
+
+Select Project.E_id,Ename,Dept,Salary,Address,P_id from Emplooye natural join Project;
++------+-------+------+--------+----------+------+
+| E_id | Ename | Dept | Salary | Address  | P_id |
++------+-------+------+--------+----------+------+
+|    1 | Kunal | HR   |  10020 | panj     | p1   |
+|    5 | Varun | MRKT |  30090 | Banglore | P2   |
+|    3 | Ravi  | HR   |  10090 | Pune     | p3   |
+|    4 | Rahul | HR   |  10090 | Pune     | p4   |
++------+-------+------+--------+----------+------+ 
+
+
+
+
+// Self join 
+
+Select s1.First_Name,s1.Last_name, s1.roll_number,s1.marks from Student as s1, Student as s2 where s1.roll_number!=s2.roll_number and s1.Marks=s2.Marks;
++------------+-----------+-------------+-------+
+| First_Name | Last_name | roll_number | marks |
++------------+-----------+-------------+-------+
+| pooja      | Singh     |          22 |    87 |
+| Ravi       | raj       |          20 |    87 |
++------------+-----------+-------------+-------+
+2 rows in set (0.00 sec)
+
+
+
+// Equ Join 
+
+
+
+Find the Emp name who Worked in Department having loction same as their Address 
+
+ Select Project.E_id,Ename,Dept,Salary,Address,P_id,location from Emplooye,Project where Emplooye.E_id=Project.E_id and Emplooye.Address=Project.location;
+Empty set (0.00 sec)
+
+
+
+// Left Outer Join 
+Select * from Emplooye left outer join Project on (Emplooye.E_id=Project.E_id);
++------+--------+------+--------+----------+------+------+--------------+----------+
+| E_ID | EName  | Dept | salary | Address  | E_ID | p_id | project_name | location |
++------+--------+------+--------+----------+------+------+--------------+----------+
+|    1 | Kunal  | HR   |  10020 | panj     |    1 | p1   | IOT          | Banglore |
+|    2 | Mohan  | MRKT |  10060 | Delhi    | NULL | NULL | NULL         | NULL     |
+|    3 | Ravi   | HR   |  10090 | Pune     |    3 | p3   | Retail       | Mumbai   |
+|    4 | Rahul  | HR   |  10090 | Pune     |    4 | p4   | Android      | Mumbai   |
+|    5 | Varun  | MRKT |  30090 | Banglore |    5 | P2   | IOT          | Delhi    |
+|    6 | Nitin  | IT   |  30090 | Delhi    | NULL | NULL | NULL         | NULL     |
+|    7 | Rahul  | IT   |  40090 | Panj     | NULL | NULL | NULL         | NULL     |
+|    8 | Pooja  | IT   |  40090 | Delhi    | NULL | NULL | NULL         | NULL     |
+|    9 | Ranjan | MRKT |  10090 | Mumbai   | NULL | NULL | NULL         | NULL     |
++------+--------+------+--------+----------+------+------+--------------+----------+
+9 rows in set (0.00 sec)
+
+
+// right 
+
+mysql> Select * from Emplooye right  outer join Project on (Emplooye.E_id=Project.E_id);
++------+-------+------+--------+----------+------+------+--------------+----------+
+| E_ID | EName | Dept | salary | Address  | E_ID | p_id | project_name | location |
++------+-------+------+--------+----------+------+------+--------------+----------+
+|    1 | Kunal | HR   |  10020 | panj     |    1 | p1   | IOT          | Banglore |
+|    5 | Varun | MRKT |  30090 | Banglore |    5 | P2   | IOT          | Delhi    |
+|    3 | Ravi  | HR   |  10090 | Pune     |    3 | p3   | Retail       | Mumbai   |
+|    4 | Rahul | HR   |  10090 | Pune     |    4 | p4   | Android      | Mumbai   |
++------+-------+------+--------+----------+------+------+--------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> Select * from Emplooye right  outer join Emplooye on (Project.E_id=Emplooye.E_id);
+ERROR 1066 (42000): Not unique table/alias: 'Emplooye'
+mysql> Select * from Project  right  outer join Emplooye on (Project.E_id=Emplooye.E_id);
++------+------+--------------+----------+------+--------+------+--------+----------+
+| E_ID | p_id | project_name | location | E_ID | EName  | Dept | salary | Address  |
++------+------+--------------+----------+------+--------+------+--------+----------+
+|    1 | p1   | IOT          | Banglore |    1 | Kunal  | HR   |  10020 | panj     |
+| NULL | NULL | NULL         | NULL     |    2 | Mohan  | MRKT |  10060 | Delhi    |
+|    3 | p3   | Retail       | Mumbai   |    3 | Ravi   | HR   |  10090 | Pune     |
+|    4 | p4   | Android      | Mumbai   |    4 | Rahul  | HR   |  10090 | Pune     |
+|    5 | P2   | IOT          | Delhi    |    5 | Varun  | MRKT |  30090 | Banglore |
+| NULL | NULL | NULL         | NULL     |    6 | Nitin  | IT   |  30090 | Delhi    |
+| NULL | NULL | NULL         | NULL     |    7 | Rahul  | IT   |  40090 | Panj     |
+| NULL | NULL | NULL         | NULL     |    8 | Pooja  | IT   |  40090 | Delhi    |
+| NULL | NULL | NULL         | NULL     |    9 | Ranjan | MRKT |  10090 | Mumbai   |
++------+------+--------------+----------+------+--------+------+--------+----------+
+9 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+Select * from Emplooye where Ename like 'r%';
++------+--------+------+--------+---------+
+| E_ID | EName  | Dept | salary | Address |
++------+--------+------+--------+---------+
+|    3 | Ravi   | HR   |  10090 | Pune    |
+|    4 | Rahul  | HR   |  10090 | Pune    |
+|    7 | Rahul  | IT   |  40090 | Panj    |
+|    9 | Ranjan | MRKT |  10090 | Mumbai  |
++------+--------+------+--------+---------+
+4 rows in set (0.00 sec)
+
+mysql> Select * from Emplooye where Ename like '-r%';
+Empty set (0.00 sec)
+
+mysql> Select * from Emplooye where Ename like '_r%';
+Empty set (0.00 sec)
+
+mysql> Select * from Emplooye where Ename like '_a%';
++------+--------+------+--------+----------+
+| E_ID | EName  | Dept | salary | Address  |
++------+--------+------+--------+----------+
+|    3 | Ravi   | HR   |  10090 | Pune     |
+|    4 | Rahul  | HR   |  10090 | Pune     |
+|    5 | Varun  | MRKT |  30090 | Banglore |
+|    7 | Rahul  | IT   |  40090 | Panj     |
+|    9 | Ranjan | MRKT |  10090 | Mumbai   |
++------+--------+------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> Select * from Emplooye where Ename like '%a%';
++------+--------+------+--------+----------+
+| E_ID | EName  | Dept | salary | Address  |
++------+--------+------+--------+----------+
+|    1 | Kunal  | HR   |  10020 | panj     |
+|    2 | Mohan  | MRKT |  10060 | Delhi    |
+|    3 | Ravi   | HR   |  10090 | Pune     |
+|    4 | Rahul  | HR   |  10090 | Pune     |
+|    5 | Varun  | MRKT |  30090 | Banglore |
+|    7 | Rahul  | IT   |  40090 | Panj     |
+|    8 | Pooja  | IT   |  40090 | Delhi    |
+|    9 | Ranjan | MRKT |  10090 | Mumbai   |
++------+--------+------+--------+----------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
