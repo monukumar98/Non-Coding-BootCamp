@@ -1,41 +1,17 @@
-package Class_Demo;
+package LLd_2;
 
-public class Student {
+public abstract class Student extends Otp {
+	
+	private  String Name;
+	private int age;
+	private int roll_no;
+	
+	public abstract boolean Create_Student_data();
+	
+	int otp = this.Gen_OTP();
+	public abstract  boolean verfiy();
+	
+	
 
-	private String name="hey";
-	private int age=89;
-
-	public Student() {
-
-	}
-
-	public Student(String name, int  age) {
-		this.name=name;
-		this.age=age;
-		
-		
-
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getAge() {
-		
-		return age;
-	}
-
-	public void setAge(int age) throws Exception {
-		
-		if(age<0) {
-			throw new Exception("-ve age");
-		}
-		this.age = age;
-	}
 
 }
