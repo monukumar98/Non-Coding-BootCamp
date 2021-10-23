@@ -1,0 +1,21 @@
+SQL:
+
+1) Insert - into
+2) Update - set 
+update table_name set column_name=value where condn
+3) null value operate - is 
+4)count- gives the total number of entries in the table
+5) delete-from 
+
+6)Select Dept from Emplooye Group by dept  having  Count(*)<=2;
+
+7) alter table table_name add column_name (datatype); //alter ko pta hai ki column hi add hoga bcuz table to create command se create ho jati hai bt column keyword use ni kra yhah bcuz it's obvious column add hoga
+
+
+8) alter table old_table_name rename to new_table_name;
+
+9)alter table table_name rename column old_column_name to new_column_name;
+
+10) alter table table_name modify 
+
+group by ke sath having use hota hai where ni
